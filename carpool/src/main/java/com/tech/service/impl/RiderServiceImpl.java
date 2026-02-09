@@ -21,15 +21,17 @@ public class RiderServiceImpl implements RiderSerivce {
     
     // In-memory list of all available drivers (assuming pre-loaded data)
     private final List<Driver> availableDrivers = List.of(
-        new Driver(1L, "talukoffic","Ka001",13.0049, 77.69211), // Bangalore lat/lon example
-        new Driver(2L, "peeni","KA02",13.0519,77.7427));
+        new Driver(1L, "Driver1","Ka001",13.0049, 77.69211), // Bangalore lat/lon example
+        new Driver(2L, "Driver2","KA02",13.0519,77.7427));
         // ... more drivers
  
  
     @Override
     public Optional<Driver> requestRide(RideRequest request) {
         // 1. Calculate distance to all available drivers
-        Optional<Driver> closestDriver = availableDrivers.stream()
+        
+    	
+    	Optional<Driver> closestDriver = availableDrivers.stream()
             .filter(driver -> driverAvailability.getOrDefault(driver.getId(), new AtomicBoolean(true)).get())
             .min(Comparator.comparingDouble(driver ->
                 calculateHaversineDistance(request.getCustLatitude(), request.getCustLongitude(),
